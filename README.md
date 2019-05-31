@@ -1,3 +1,3 @@
-# TS Node Starter
+# Fantasy Baseball Server
 
-A simple TS Node starter repo
+Fantasy Baseball roster GraphQL server
