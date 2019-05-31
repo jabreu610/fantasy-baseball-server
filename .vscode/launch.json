@@ -9,7 +9,8 @@
       "request": "attach",
       "name": "Attach debugger",
       "processId": "${command:PickProcess}",
-      "protocol": "inspector"
+      "protocol": "inspector",
+      "restart": true
     }
   ]
 }
