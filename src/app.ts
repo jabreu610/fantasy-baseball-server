@@ -4,11 +4,21 @@ import graphqlHTTP from 'express-graphql';
 
 import schema from './schema';
 import rootValue from './resolvers';
+import db from './db';
 
 const PORT = process.env.PORT;
+const shutdown = async (): Promise<void> => {
+  await db.close();
+  console.log('Cleanup complete');
+  process.exit(0);
+};
 
 (async (): Promise<void> => {
   const app = express();
+  db.init();
+  process.on('SIGINT', shutdown);
+  process.on('SIGTERM', shutdown);
+  process.on('SIGUSR2', shutdown);
   app.get(
     '/',
     asyncHandler(

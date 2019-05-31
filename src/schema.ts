@@ -5,7 +5,16 @@ function gql([schema]: TemplateStringsArray): GraphQLSchema {
 }
 
 export default gql`
+  type Player {
+    _id: ID!
+    name: String!
+    position: String!
+    team: String!
+    injuryReport: String
+    updateTs: String!
+  }
+
   type Query {
-    hello: String!
+    player(limit: Int = 10, name: String): [Player]
   }
 `;
