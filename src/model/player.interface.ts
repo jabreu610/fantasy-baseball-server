@@ -114,6 +114,10 @@ export interface Player {
   appearances: Appearances[] | AppearancesFn;
 }
 
-type PitchingStatsFn = () => PitchingStats[];
-type BattingStatsFn = () => BattingStats[];
-type AppearancesFn = () => Appearances[];
+export interface StatsArgs {
+  year: number[];
+}
+
+type PitchingStatsFn = (args: StatsArgs) => PitchingStats[];
+type BattingStatsFn = (args: StatsArgs) => BattingStats[];
+type AppearancesFn = (args: StatsArgs) => Appearances[];

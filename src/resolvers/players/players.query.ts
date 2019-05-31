@@ -3,6 +3,7 @@ import {
   BattingStats,
   PitchingStats,
   Appearances,
+  StatsArgs,
 } from '../../model/player.interface';
 import db from '../../db';
 
@@ -10,8 +11,14 @@ interface PlayerQuery {
   player: (args: { limit: number; name?: string }) => Promise<Player[]>;
 }
 
-const formatPitching = (stats: PitchingStats[]): PitchingStats[] =>
-  stats.map(
+const formatPitching = (
+  stats: PitchingStats[],
+  { year = [] }: StatsArgs
+): PitchingStats[] => {
+  if (year.length > 0) {
+    stats = stats.filter((s): boolean => year.includes(s.year));
+  }
+  return stats.map(
     (p: PitchingStats): PitchingStats => ({
       ...p,
       winLoss: p['w-l%'],
@@ -19,9 +26,16 @@ const formatPitching = (stats: PitchingStats[]): PitchingStats[] =>
       soPerW: p['so/w'],
     })
   );
+};
 
-const formatBatting = (stats: BattingStats[]): BattingStats[] =>
-  stats.map(
+const formatBatting = (
+  stats: BattingStats[],
+  { year = [] }: StatsArgs
+): BattingStats[] => {
+  if (year.length > 0) {
+    stats = stats.filter((s): boolean => year.includes(s.year));
+  }
+  return stats.map(
     (b: BattingStats): BattingStats => ({
       ...b,
       doubles: b['2b'],
@@ -29,9 +43,16 @@ const formatBatting = (stats: BattingStats[]): BattingStats[] =>
       opsPlus: b['ops+'],
     })
   );
+};
 
-const formatAppearances = (appearences: Appearances[]): Appearances[] =>
-  appearences.map(
+const formatAppearances = (
+  appearences: Appearances[],
+  { year = [] }: StatsArgs
+): Appearances[] => {
+  if (year.length > 0) {
+    appearences = appearences.filter((a): boolean => year.includes(a.year));
+  }
+  return appearences.map(
     (a: Appearances): Appearances => ({
       ...a,
       firstBase: a['1b'],
@@ -39,6 +60,7 @@ const formatAppearances = (appearences: Appearances[]): Appearances[] =>
       thirdBase: a['3b'],
     })
   );
+};
 
 const query: PlayerQuery = {
   player: async ({ limit, name }) => {

@@ -107,9 +107,9 @@ export default gql`
     team: String!
     injuryReport: String
     updateTs: String!
-    batting: [BattingStats]
-    pitching: [PitchingStats]
-    appearances: [Appearances]
+    batting(year: [Int]): [BattingStats]
+    pitching(year: [Int]): [PitchingStats]
+    appearances(year: [Int]): [Appearances]
   }
 
   type Query {
