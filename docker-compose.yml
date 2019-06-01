@@ -1,0 +1,16 @@
+version: '2.1'
+
+services:
+  fantasy-baseball-server:
+    image: fantasy-baseball-server
+    build: .
+    logging:
+      driver: gelf
+      options:
+        gelf-address: 'udp://localhost:12201'
+    environment:
+      NODE_ENV: production
+      PORT: ${PORT}
+      MONGO_URL: ${MONGO_URL}
+    ports:
+      - ${PORT}:${PORT}
