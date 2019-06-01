@@ -3,6 +3,7 @@ version: '2.1'
 services:
   fantasy-baseball-server:
     image: fantasy-baseball-server
+    network_mode: 'bridge'
     build: .
     logging:
       driver: gelf
