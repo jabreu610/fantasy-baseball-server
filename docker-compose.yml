@@ -4,6 +4,7 @@ services:
   fantasy-baseball-server:
     image: fantasy-baseball-server
     build: .
+    network_mode: ${NETWORK_MODE}
     logging:
       driver: gelf
       options:
